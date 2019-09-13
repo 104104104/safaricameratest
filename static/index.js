@@ -13,5 +13,6 @@ function successCallback(stream) {
 };
 
 function errorCallback(err) {
-    alert(err);
+    alert(err, 'aaa');
+    console.log(err);
 };
