@@ -1,5 +1,5 @@
 const medias = {
-    audio: true,
+    audio: false,
     video: {
         exact: "environment"
     }
@@ -22,10 +22,12 @@ function errorCallback(err) {
     alert(err);
 }
 
+
 function draw() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     ctx.drawImage(video, 0, 0);
+
 
     requestAnimationFrame(draw);
 }
