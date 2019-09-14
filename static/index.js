@@ -1,7 +1,9 @@
 const medias = {
-    audio: false,
+    audio: true,
     video: {
-        exact: "environment"
+        facingMode: {
+            exact: "environment"
+        }
     }
 };
 const video = document.getElementById("video");
