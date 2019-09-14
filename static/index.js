@@ -1,5 +1,5 @@
 const medias = {
-    audio: true,
+    audio: false,
     video: {
         facingMode: {
             exact: "environment"
