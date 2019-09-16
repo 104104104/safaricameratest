@@ -21,3 +21,17 @@ body {
     color: white;
     opacity: 0.8;
 }
+
+#aImg {
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: auto;
+    width: 10%;
+    height: 70%;
+    background: white;
+    color: black;
+}

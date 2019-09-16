@@ -55,8 +55,19 @@ function draw() {
 
 //ボタン描画
 function button() {
+    //黒の背景
     document.getElementById('mybutton').style.top = "90%";
     document.getElementById('mybutton').style.left = 0;
     document.getElementById('mybutton').style.width = "100%";
     document.getElementById('mybutton').style.height = "10%";
 };
+
+//ボタンが押された時に、canvas→画像する部分
+var aImg = document.getElementById('aImg');
+aImg.addEventListener('click', function() {
+    console.log('click');
+    var png = canvas.toDataURL();
+    aImg.href = png;
+    aImg.download = 'cancas.png'
+    aImg.click();
+});
