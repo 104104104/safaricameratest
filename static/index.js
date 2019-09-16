@@ -19,6 +19,10 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const promise = navigator.mediaDevices.getUserMedia(medias);
 
+//画像オブジェクトを生成
+var img = new Image();
+img.src = "test.jpeg";
+
 promise.then(successCallback)
     .catch(errorCallback);
 
@@ -34,35 +38,42 @@ function errorCallback(err) {
 function draw() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    ctx.drawImage(video, 0, 0);
+    //ctx.drawImage(video, 0, 0);
+
+    //手前の画像表示
+    temae();
 
     //ボタンの描画
     button();
 
-
-    /*
-    ctx.rect(0, canvas.height - canvas.height / 9, canvas.width, canvas.height / 9);
-    ctx.fillStyle = "rgba(0,0,0,0.8)";
-    ctx.fill();
-    */
-
     requestAnimationFrame(draw);
+};
+
+//手前の画像関連
+function temae() {
+    //画像をcanvasに設定
+    ctx.drawImage(img, 0, 0, 400, 300); //400x300に縮小表示
 };
 
 
 //ボタン描画
 function button() {
     //黒の背景
-    document.getElementById('mybutton').style.top = "90%";
+    //videoのいちに合わせて表示する
+    videoPosition = video.getBoundingClientRect();
+    document.getElementById('mybutton').style.top = videoPosition.bottom - 70 + "px";
     document.getElementById('mybutton').style.left = 0;
     document.getElementById('mybutton').style.width = "100%";
-    document.getElementById('mybutton').style.height = "10%";
+    document.getElementById('mybutton').style.height = "70px";
 };
+
 
 //ボタンが押された時に、canvas→画像する部分
 var aImg = document.getElementById('aImg');
 aImg.addEventListener('click', function() {
     console.log('click');
+    ctx.drawImage(video, 0, 0); // canvasに関数実行時の動画のフレームを描画
+    temae();
     var png = canvas.toDataURL();
     aImg.href = png;
     aImg.download = 'cancas.png'
