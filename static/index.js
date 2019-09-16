@@ -72,7 +72,8 @@ function button() {
 var aImg = document.getElementById('aImg');
 aImg.addEventListener('click', function() {
     console.log('click');
-    ctx.drawImage(video, 0, 0); // canvasに関数実行時の動画のフレームを描画
+    videoPosition = video.getBoundingClientRect();
+    ctx.drawImage(video, 0, 0, videoPosition.width, videoPosition.height); // canvasに関数実行時の動画のフレームを描画
     temae();
     var png = canvas.toDataURL();
     aImg.href = png;
