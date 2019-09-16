@@ -58,7 +58,9 @@ function draw() {
 //手前の画像関連
 function temae() {
     //画像をcanvasに設定
-    ctx.drawImage(img, 0, 0, videoPosition.width / 4 * myscale, videoPosition.height / 4 * myscale); //400x300に縮小表示
+    //元々の画像がスマホの写真なので、画像の縦横比が壊れる問題は、大丈夫か？
+    //だって、合成先もスマホのカメラだからな…
+    ctx.drawImage(img, 0 + diff.x, 0 + diff.y, videoPosition.width / 4 * myscale + diff.x, videoPosition.height / 4 * myscale + diff.y); //400x300に縮小表示
 };
 
 const slider = document.getElementById('zoom-slider');
@@ -76,6 +78,42 @@ slider.addEventListener('input', e => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // 倍率変更
     myscale = e.target.value;
+});
+
+
+//ドラッグで移動するためのあれこれ
+// ドラッグ状態かどうか
+let isDragging = false;
+// ドラッグ開始位置
+let start = {
+    x: 0,
+    y: 0
+};
+// ドラッグ中の位置
+let diff = {
+    x: 0,
+    y: 0
+};
+// ドラッグ終了後の位置
+let end = {
+    x: 0,
+    y: 0
+}
+canvas.addEventListener('mousedown', event => {
+    isDragging = true;
+    start.x = event.clientX;
+    start.y = event.clientY;
+});
+canvas.addEventListener('mousemove', event => {
+    if (isDragging) {
+        diff.x = (event.clientX - start.x) + end.x;
+        diff.y = (event.clientY - start.y) + end.y;
+    }
+});
+canvas.addEventListener('mouseup', event => {
+    isDragging = false;
+    end.x = diff.x;
+    end.y = diff.y;
 });
 
 
