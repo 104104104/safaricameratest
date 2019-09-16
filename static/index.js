@@ -14,15 +14,13 @@ const medias = {
     audio: false,
     video: true
 };
-
 const video = document.getElementById("video");
-const promise = navigator.mediaDevices.getUserMedia(medias);
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const promise = navigator.mediaDevices.getUserMedia(medias);
 
 promise.then(successCallback)
-    .then(errorCallback);
+    .catch(errorCallback);
 
 function successCallback(stream) {
     video.srcObject = stream;
@@ -30,7 +28,7 @@ function successCallback(stream) {
 };
 
 function errorCallback(err) {
-    //alert(err);
+    alert(err);
 };
 
 function draw() {
