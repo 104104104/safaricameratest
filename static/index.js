@@ -39,7 +39,7 @@ function draw() {
     ctx.drawImage(video, 0, 0);
 
     //ボタンの描画
-    button();
+    //button();
 
 
     /*
@@ -53,6 +53,7 @@ function draw() {
     requestAnimationFrame(draw);
 };
 
+/*
 //ボタン描画
 function button() {
     //黒の背景
@@ -71,3 +72,4 @@ aImg.addEventListener('click', function() {
     aImg.download = 'cancas.png'
     aImg.click();
 });
+*/
