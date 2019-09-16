@@ -58,6 +58,27 @@ function temae() {
     ctx.drawImage(img, 0, 0, videoPosition.width / 4, videoPosition.height / 4); //400x300に縮小表示
 };
 
+const slider = document.getElementById('zoom-slider');
+slider.value = 1;
+// 倍率の最小・最大値
+slider.min = 0.01;
+slider.max = 2;
+// 粒度
+slider.step = 'any';
+
+// スライダーが動いたら拡大・縮小して再描画する
+slider.addEventListener('input', e => {
+    // 一旦クリア 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // 倍率変更
+    const scale = e.target.value;
+    ctx.scale(scale, scale);
+    // 再描画
+    ctx.drawImage(img, 0, 0);
+    // 変換マトリクスを元に戻す
+    ctx.scale(1 / scale, 1 / scale);
+});
+
 
 //ボタン描画
 function button() {
