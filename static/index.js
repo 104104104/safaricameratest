@@ -18,6 +18,7 @@ const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const promise = navigator.mediaDevices.getUserMedia(medias);
+var videoPosition = video.getBoundingClientRect();
 
 //画像オブジェクトを生成
 var img = new Image();
@@ -36,8 +37,10 @@ function errorCallback(err) {
 };
 
 function draw() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    //videoPositionは毎フレーム更新
+    videoPosition = video.getBoundingClientRect();
+    canvas.width = videoPosition.width;
+    canvas.height = videoPosition.height;
     //ctx.drawImage(video, 0, 0);
 
     //手前の画像表示
@@ -52,7 +55,7 @@ function draw() {
 //手前の画像関連
 function temae() {
     //画像をcanvasに設定
-    ctx.drawImage(img, 0, 0, 400, 300); //400x300に縮小表示
+    ctx.drawImage(img, 0, 0, videoPosition.width / 4, videoPosition.height / 4); //400x300に縮小表示
 };
 
 
@@ -60,8 +63,8 @@ function temae() {
 function button() {
     //黒の背景
     //videoのいちに合わせて表示する
-    videoPosition = video.getBoundingClientRect();
-    document.getElementById('mybutton').style.top = videoPosition.bottom - 70 + "px";
+    //document.getElementById('mybutton').style.top = videoPosition.bottom - 70 + "px";
+    document.getElementById('mybutton').style.top = "90%";
     document.getElementById('mybutton').style.left = 0;
     document.getElementById('mybutton').style.width = "100%";
     document.getElementById('mybutton').style.height = "70px";
@@ -72,7 +75,6 @@ function button() {
 var aImg = document.getElementById('aImg');
 aImg.addEventListener('click', function() {
     console.log('click');
-    videoPosition = video.getBoundingClientRect();
     ctx.drawImage(video, 0, 0, videoPosition.width, videoPosition.height); // canvasに関数実行時の動画のフレームを描画
     temae();
     var png = canvas.toDataURL();
