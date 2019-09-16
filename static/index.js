@@ -60,7 +60,7 @@ function temae() {
     //画像をcanvasに設定
     //元々の画像がスマホの写真なので、画像の縦横比が壊れる問題は、大丈夫か？
     //だって、合成先もスマホのカメラだからな…
-    ctx.drawImage(img, 0 + diff.x, 0 + diff.y, videoPosition.width / 4 * myscale + diff.x, videoPosition.height / 4 * myscale + diff.y); //400x300に縮小表示
+    ctx.drawImage(img, 0 + diff.x, 0 + diff.y, videoPosition.width / 4 * myscale, videoPosition.height / 4 * myscale); //400x300に縮小表示
 };
 
 const slider = document.getElementById('zoom-slider');
