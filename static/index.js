@@ -14,11 +14,14 @@ const medias = {
     audio: false,
     video: true
 };
+
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const promise = navigator.mediaDevices.getUserMedia(medias);
 var videoPosition = video.getBoundingClientRect();
+
+var myscale = 1; //sliderが動いたら、ここの値を書き換える
 
 //画像オブジェクトを生成
 var img = new Image();
@@ -55,28 +58,24 @@ function draw() {
 //手前の画像関連
 function temae() {
     //画像をcanvasに設定
-    ctx.drawImage(img, 0, 0, videoPosition.width / 4, videoPosition.height / 4); //400x300に縮小表示
+    ctx.drawImage(img, 0, 0, videoPosition.width / 4 * myscale, videoPosition.height / 4 * myscale); //400x300に縮小表示
 };
 
 const slider = document.getElementById('zoom-slider');
 slider.value = 1;
 // 倍率の最小・最大値
 slider.min = 0.01;
-slider.max = 2;
+slider.max = 4;
 // 粒度
 slider.step = 'any';
 
 // スライダーが動いたら拡大・縮小して再描画する
 slider.addEventListener('input', e => {
+    console.log(myscale);
     // 一旦クリア 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // 倍率変更
-    const scale = e.target.value;
-    ctx.scale(scale, scale);
-    // 再描画
-    ctx.drawImage(img, 0, 0);
-    // 変換マトリクスを元に戻す
-    ctx.scale(1 / scale, 1 / scale);
+    myscale = e.target.value;
 });
 
 
