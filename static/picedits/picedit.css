@@ -7,6 +7,7 @@ body {
     position: absolute;
     z-index: 5;
     left: 5vw;
+    opacity: 0;
 }
 
 #canvassoto {
@@ -21,8 +22,10 @@ body {
     top: 0;
     left: 5vw;
     z-index: 10;
+    /*
     background: red;
     opacity: 0.5;
+    */
 }
 
 #mybutton {
