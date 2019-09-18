@@ -6,8 +6,6 @@ body {
 #editimg {
     position: absolute;
     z-index: 5;
-    left: 5vw;
-    opacity: 0;
 }
 
 #canvassoto {
@@ -20,7 +18,6 @@ body {
     display: block;
     position: absolute;
     top: 0;
-    left: 5vw;
     z-index: 10;
     /*
     background: red;
@@ -36,4 +33,13 @@ body {
     height: 9vh;
     width: 100vw;
     margin-top: 91vh;
+}
+
+#mybuttonTate {
+    background: #222;
+    position: absolute;
+    left: 91vw;
+    width: 9vw;
+    height: 100vh;
+    z-index: 18;
 }
