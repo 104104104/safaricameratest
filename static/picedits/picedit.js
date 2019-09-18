@@ -1,4 +1,5 @@
 const canvas = document.getElementById("canvas");
+const canvasForToumei = document.getElementById("canvasForToumei");
 const ctx = canvas.getContext("2d");
 const canvassoto = document.getElementById("canvassoto");
 
@@ -17,6 +18,9 @@ function draw() {
     //canvasの大きさ
     canvas.width = videoPosition.width;
     canvas.height = videoPosition.height;
+    //canvasForToumeiの大きさ
+    canvasForToumei.width = videoPosition.width;
+    canvasForToumei.height = videoPosition.height;
     //imgの大きさ
     img.width = videoPosition.width;
     img.height = videoPosition.height;
@@ -84,7 +88,7 @@ ctx.strokeStyle = "rgba(0, 255, 0, 1.0)";
 
 //マウスの座標を取得する
 canvas.addEventListener("mousemove", function(e) {
-    console.log('moving!');
+    //console.log('moving!');
     var rect = e.target.getBoundingClientRect();
     //ctx.lineWidth = document.getElementById("lineWidth").value;
 
@@ -93,7 +97,7 @@ canvas.addEventListener("mousemove", function(e) {
 
     //クリック状態なら描画をする
     if (drawflug === true) {
-        console.log('drawing!');
+        //console.log('drawing!');
         ctx.beginPath();
         //console.log(mouseX, mouseY, mouseX1, mouseY1);
         ctx.moveTo(mouseX1, mouseY1);
@@ -112,7 +116,7 @@ canvas.addEventListener("mousedown", function(e) {
     mouseX1 = mouseX;
     mouseY1 = mouseY;
     undoImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    console.log("clicked!");
+    //console.log("clicked!");
 });
 
 //クリックを離したら、描画を終了する
@@ -156,4 +160,30 @@ deleteall.onclick = function() {
     //通常ペンに戻す
     ctx.strokeStyle = "rgba(0, 255, 0, 1.0)";
     ctx.globalCompositeOperation = 'source-over';
+}
+
+
+//
+//選択部分を透明にする部分
+//
+const toEditedPic = document.getElementById("toEditedPic");
+const ctxForToumei = canvasForToumei.getContext("2d");
+toEditedPic.onclick = function() {
+    // canvasForToumeiに背景の画像を書き込む
+    //ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, videoPosition.width, videoPosition.height);
+    console.log("1!");
+
+    //今のcanvas(線引いたやつ)を、canvasForToumeiに書き込むためのあれこれ
+    //一旦、tempに今のcanvas(線引いたやつ)を格納
+    var temp = canvas.toDataURL();
+    //tempcanvasimgに書き込む
+    var tempcanvasimg = document.getElementById("tempcanvasimg");
+    tempcanvasimg.src = temp;
+    //tempcanvasimg → canvasForToumei
+    ctxForToumei.drawImage(document.getElementById("tempcanvasimg"), 0, 0, videoPosition.width, videoPosition.height);
+    console.log("2!");
+
+
+    var png = canvasForToumei.toDataURL();
+    document.getElementById("testimg").src = png;
 }

@@ -8,6 +8,12 @@ body {
     z-index: 5;
 }
 
+#tempcanvasimg {
+    opacity: 1;
+    position: absolute;
+    top: 300vh;
+}
+
 #canvassoto {
     width: 90vw;
     height: 90vh;
@@ -19,10 +25,14 @@ body {
     position: absolute;
     top: 0;
     z-index: 10;
-    /*
-    background: red;
-    opacity: 0.5;
-    */
+}
+
+#canvasForToumei {
+    display: block;
+    position: absolute;
+    top: 200vh;
+    z-index: 1;
+    opacity: 1;
 }
 
 #mybutton {
@@ -42,4 +52,8 @@ body {
     width: 9vw;
     height: 100vh;
     z-index: 18;
+}
+
+#testimg {
+    margin-top: 100vh;
 }
