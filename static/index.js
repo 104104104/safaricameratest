@@ -133,7 +133,7 @@ function button() {
 //ボタンが押された時に、canvas→画像する部分
 var aImg = document.getElementById('aImg');
 aImg.addEventListener('click', function() {
-    console.log('click');
+    //console.log('click');
     ctx.drawImage(video, 0, 0, videoPosition.width, videoPosition.height); // canvasに関数実行時の動画のフレームを描画
     temae();
     var png = canvas.toDataURL();

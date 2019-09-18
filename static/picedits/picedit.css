@@ -1,9 +1,36 @@
-#piceditcanvas {
+body {
+    margin: 0;
+    background: white;
+}
+
+#editimg {
+    position: absolute;
+    z-index: 5;
+    left: 5vw;
+}
+
+#canvassoto {
+    width: 90vw;
+    height: 90vh;
+    position: absolute;
+}
+
+#canvas {
     display: block;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 5vw;
     z-index: 10;
+    background: red;
+    opacity: 0.5;
+}
+
+#mybutton {
+    background: #222;
+    z-index: 20;
+    position: absolute;
+    color: white;
+    height: 9vh;
     width: 100vw;
-    height: 100vh;
+    margin-top: 91vh;
 }
