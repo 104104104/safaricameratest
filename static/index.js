@@ -25,7 +25,7 @@ var myscale = 1; //sliderが動いたら、ここの値を書き換える
 
 //画像オブジェクトを生成
 var img = new Image();
-img.src = "test.jpeg";
+img.src = "test.png";
 
 promise.then(successCallback)
     .catch(errorCallback);
@@ -73,7 +73,7 @@ slider.step = 'any';
 
 // スライダーが動いたら拡大・縮小して再描画する
 slider.addEventListener('input', e => {
-    console.log(myscale);
+    //console.log(myscale);
     // 一旦クリア 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // 倍率変更
@@ -105,6 +105,7 @@ canvas.addEventListener('mousedown', event => {
     start.y = event.clientY;
 });
 canvas.addEventListener('mousemove', event => {
+    console.log(event);
     if (isDragging) {
         diff.x = (event.clientX - start.x) + end.x;
         diff.y = (event.clientY - start.y) + end.y;
