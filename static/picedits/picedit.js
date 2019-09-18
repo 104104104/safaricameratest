@@ -170,8 +170,8 @@ const toEditedPic = document.getElementById("toEditedPic");
 const ctxForToumei = canvasForToumei.getContext("2d");
 toEditedPic.onclick = function() {
     // canvasForToumeiに背景の画像を書き込む
-    //ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, videoPosition.width, videoPosition.height);
-    console.log("1!");
+    ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, videoPosition.width, videoPosition.height);
+    //console.log("1!");
 
     //今のcanvas(線引いたやつ)を、canvasForToumeiに書き込むためのあれこれ
     //一旦、tempに今のcanvas(線引いたやつ)を格納
@@ -180,10 +180,13 @@ toEditedPic.onclick = function() {
     var tempcanvasimg = document.getElementById("tempcanvasimg");
     tempcanvasimg.src = temp;
     //tempcanvasimg → canvasForToumei
-    ctxForToumei.drawImage(document.getElementById("tempcanvasimg"), 0, 0, videoPosition.width, videoPosition.height);
-    console.log("2!");
+    tempcanvasimg.onload = function() {
+            ctxForToumei.drawImage(document.getElementById("tempcanvasimg"), 0, 0, videoPosition.width, videoPosition.height);
+
+            var png = canvasForToumei.toDataURL();
+            document.getElementById("testimg").src = png;
+        }
+        //console.log("2!");
 
 
-    var png = canvasForToumei.toDataURL();
-    document.getElementById("testimg").src = png;
 }
