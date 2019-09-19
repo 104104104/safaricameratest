@@ -191,42 +191,35 @@ deleteall.onclick = function() {
 //
 //スマホで描画
 //
-var finger = new Array;
-for (var i = 0; i < 10; i++) {
-    finger[i] = {
-        x: 0,
-        y: 0,
-        x1: 0,
-        y1: 0,
-    };
-}
+var finger = {
+    x: 0,
+    y: 0,
+    x1: 0,
+    y1: 0,
+};
 
 //タッチした瞬間座標を取得
 canvas.addEventListener("touchstart", function(e) {
     e.preventDefault();
     var rect = e.target.getBoundingClientRect();
-    for (var i = 0; i < finger.length; i++) {
-        finger[i].x1 = e.touches[i].clientX - rect.left;
-        finger[i].y1 = e.touches[i].clientY - rect.top;
-    }
+    console.log(e.touches[0].clientX);
+    finger.x1 = e.touches[0].clientX - rect.left;
+    finger.y1 = e.touches[0].clientY - rect.top;
 });
 
 //タッチして動き出したら描画
 canvas.addEventListener("touchmove", function(e) {
     e.preventDefault();
     var rect = e.target.getBoundingClientRect();
-    for (var i = 0; i < finger.length; i++) {
-        finger[i].x = e.touches[i].clientX - rect.left;
-        finger[i].y = e.touches[i].clientY - rect.top;
-        ctx.beginPath();
-        ctx.moveTo(finger[i].x1, finger[i].y1);
-        ctx.lineTo(finger[i].x, finger[i].y);
-        ctx.lineCap = "round";
-        ctx.stroke();
-        finger[i].x1 = finger[i].x;
-        finger[i].y1 = finger[i].y;
-
-    }
+    finger.x = e.touches[0].clientX - rect.left;
+    finger.y = e.touches[0].clientY - rect.top;
+    ctx.beginPath();
+    ctx.moveTo(finger.x1, finger.y1);
+    ctx.lineTo(finger.x, finger.y);
+    ctx.lineCap = "round";
+    ctx.stroke();
+    finger.x1 = finger.x;
+    finger.y1 = finger.y;
 });
 //
 //スマホで描画ここまで

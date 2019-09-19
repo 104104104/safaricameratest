@@ -29,10 +29,11 @@ var myscale = 1; //sliderが動いたら、ここの値を書き換える
 
 //画像オブジェクトを生成
 var img = new Image();
+//テスト用
 img.src = "test.png";
 //本番用
 //img.src = recieveImg;
-//console.log(img.src);
+console.log(img.src);
 
 promise.then(successCallback)
     .catch(errorCallback);
@@ -128,53 +129,43 @@ canvas.addEventListener('mouseup', event => {
 //
 //スマホで動かすためのあれこれ
 //
-var finger = new Array;
-for (var i = 0; i < 10; i++) {
-    finger[i] = {
-        x: 0,
-        y: 0,
-        x1: 0,
-        y1: 0,
-    };
-}
+var finger = {
+    x: 0,
+    y: 0,
+    x1: 0,
+    y1: 0,
+};
 
 //タッチした瞬間座標を取得
 canvas.addEventListener("touchstart", function(e) {
     e.preventDefault();
     var rect = e.target.getBoundingClientRect();
-    for (var i = 0; i < finger.length; i++) {
-        finger[i].x1 = e.touches[i].clientX - rect.left;
-        finger[i].y1 = e.touches[i].clientY - rect.top;
-    }
+    console.log(e.touches[0].clientX);
     isDragging = true;
-    start.x = finger[0].x1;
-    start.y = finger[0].y1;
+    start.x = e.touches[0].clientX - rect.left;
+    start.y = e.touches[0].clientY - rect.top;
 });
-//タッチして動き出したら動かす
+
+//タッチして動き出したら描画
 canvas.addEventListener("touchmove", function(e) {
     e.preventDefault();
     var rect = e.target.getBoundingClientRect();
-    for (var i = 0; i < finger.length; i++) {
-        finger[i].x = e.touches[i].clientX - rect.left;
-        finger[i].y = e.touches[i].clientY - rect.top;
-    }
     if (isDragging) {
-        diff.x = (finger[0].x - start.x) + end.x;
-        diff.y = (finger[0].y - start.y) + end.y;
+        diff.x = (e.touches[0].clientX - rect.left - start.x) + end.x;
+        diff.y = (e.touches[0].clientY - rect.top - start.y) + end.y;
     }
 });
-//指が離れたら、移動終わり
+//タッチを離したら、移動フラグを下ろす
 canvas.addEventListener("touchend", function(e) {
     e.preventDefault();
     isDragging = false;
     end.x = diff.x;
     end.y = diff.y;
 });
+
 //
 //スマホで描画ここまで
 //
-
-
 
 
 //ボタン描画
