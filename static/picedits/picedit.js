@@ -313,7 +313,7 @@ toEditedPic.onclick = function() {
             document.getElementById("testimg").src = png;
 
             //生成した画像を、写真撮影モードに渡す
-            window.open('/takephoto.html/?' + png, '_blank'); // 新しいタブを開き、ページを表示
+            window.open('/takephoto.html/?' + png, '_self'); // 新しいタブを開き、ページを表示
             //var toTakePhoto = document.getElementById('toTakePhoto');
             //toTakePhoto.href = 'localhost:1313/?' + png;
 
