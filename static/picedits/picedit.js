@@ -102,7 +102,7 @@ canvas.addEventListener("mousemove", function(e) {
         //console.log(mouseX, mouseY, mouseX1, mouseY1);
         ctx.moveTo(mouseX1, mouseY1);
         ctx.lineTo(mouseX, mouseY);
-        ctx.lineCap = "round";
+        ctx.lineCap = "square";
         ctx.stroke();
         mouseX1 = mouseX;
         mouseY1 = mouseY;
@@ -166,12 +166,13 @@ deleteall.onclick = function() {
 //
 //選択部分を透明にする部分
 //
+var f = 1;
+var f2 = 1;
 const toEditedPic = document.getElementById("toEditedPic");
 const ctxForToumei = canvasForToumei.getContext("2d");
 toEditedPic.onclick = function() {
     // canvasForToumeiに背景の画像を書き込む
     ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, videoPosition.width, videoPosition.height);
-    //console.log("1!");
 
     //今のcanvas(線引いたやつ)を、canvasForToumeiに書き込むためのあれこれ
     //一旦、tempに今のcanvas(線引いたやつ)を格納
@@ -180,13 +181,68 @@ toEditedPic.onclick = function() {
     var tempcanvasimg = document.getElementById("tempcanvasimg");
     tempcanvasimg.src = temp;
     //tempcanvasimg → canvasForToumei
+
+    //いか、データURIが読み込み終わってからする
     tempcanvasimg.onload = function() {
+        if (f) {
+            console.log("a");
+            //線をcanvasForToumeiに書き込む
             ctxForToumei.drawImage(document.getElementById("tempcanvasimg"), 0, 0, videoPosition.width, videoPosition.height);
+            console.log('aa');
+            /*
+            //処理が重すぎるので、画質を落とす
+            //出来上がった線+背景画像を、またtempに書き込む
+            temp = canvasForToumei.toDataURL();
+            //tempcanvasimgに書き込む
+            tempcanvasimg = document.getElementById("tempcanvasimg");
+            tempcanvasimg.src = temp;
+            //temocanvasimgをcanvasForToumeiに戻しながら、画質を落とす
+            var neww = 400;
+            var newratio = neww / temp.width;
+            var newh = temp.height * newratio;
+            ctxForToumei.drawImage(tempcanvasimg, 0, 0, neww, newh);
+            */
+
+            //ここから、緑部分を透明にする部分
+            console.log('b');
+            toToumeiData = ctxForToumei.getImageData(0, 0, videoPosition.width, videoPosition.height);
+            //console.log(toToumeiData);
+
+            //透過用のdataを作成
+            console.log('start');
+            for (var i = 0; i < toToumeiData.data.length; i += 4) {
+                /*
+                if (i % 500 == 0) {
+                    console.log(toToumeiData.data[i], toToumeiData.data[i + 1], toToumeiData.data[i + 2], toToumeiData.data[i + 3]);
+                }
+                */
+                //console.log('a');
+                //console.log(toToumeiData[i], toToumeiData[i + 1], toToumeiData[i + 2], toToumeiData[i + 3]);
+                //0,255,0,を見つけたら、アルファチャンネルを0にする
+                /*
+                toToumeiData.data[i] = 255;
+                toToumeiData.data[i + 1] = 255;
+                toToumeiData.data[i + 2] = 255;
+                */
+                //if ((0 <= toToumeiData.data[i] && toToumeiData.data[i] <= 20) && (245 <= toToumeiData.data[i + 1] && toToumeiData.data[i + 1] <= 255) && (0 <= toToumeiData.data[i + 2] && toToumeiData.data[i + 2] <= 20)) {
+                //if ((toToumeiData.data[i] <= 20) && (230 <= toToumeiData.data[i + 1]) && (toToumeiData.data[i + 2] <= 20)) {
+                //一番緑が大きな値かつめっちゃ緑が大きい か 緑そこそこ大きくて他の色が極端に小さい
+                if (((220 <= toToumeiData.data[i + 1]) && (toToumeiData.data[i] < toToumeiData.data[i + 1]) && (toToumeiData.data[i + 2] < toToumeiData.data[i + 1])) ||
+                    ((160 <= toToumeiData.data[i + 1]) && (toToumeiData.data[i] < 10) && (toToumeiData.data[i + 2] < 10))) {
+                    toToumeiData.data[i + 3] = 0;
+                    //console.log('GET!');
+                }
+            }
+            console.log("finish");
+            //加工したデータを戻す
+            ctxForToumei.putImageData(toToumeiData, 0, 0);
+            //console.log(ctxForToumei.getImageData(0, 0, videoPosition.width, videoPosition.height).data);
 
             var png = canvasForToumei.toDataURL();
             document.getElementById("testimg").src = png;
-        }
-        //console.log("2!");
 
+            f = 0;
+        }
+    }
 
 }

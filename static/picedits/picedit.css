@@ -11,7 +11,6 @@ body {
 #tempcanvasimg {
     opacity: 1;
     position: absolute;
-    top: 300vh;
 }
 
 #canvassoto {
@@ -30,7 +29,6 @@ body {
 #canvasForToumei {
     display: block;
     position: absolute;
-    top: 200vh;
     z-index: 1;
     opacity: 1;
 }
@@ -56,4 +54,5 @@ body {
 
 #testimg {
     margin-top: 100vh;
+    background: red;
 }
