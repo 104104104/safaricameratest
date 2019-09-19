@@ -313,11 +313,16 @@ toEditedPic.onclick = function() {
             document.getElementById("testimg").src = png;
 
             //生成した画像を、写真撮影モードに渡す
-            window.open('localhost:1313/?' + png, '_blank'); // 新しいタブを開き、ページを表示
+            url = '/takephoto.html/?' + png, '_blank'; // 新しいタブを開き、ページを表示iosのために、こんな書き方
+            if (window.open(url, "_blank")) {
+
+            } else {
+                window.location.href = url;
+            }
             //var toTakePhoto = document.getElementById('toTakePhoto');
             //toTakePhoto.href = 'localhost:1313/?' + png;
 
-            f = 0;
+            //f = 0;
         }
     }
 
