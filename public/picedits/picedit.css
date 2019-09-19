@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    background: white;
+}
+
+#editimg {
+    position: absolute;
+    z-index: 5;
+}
+
+#tempcanvasimg {
+    opacity: 1;
+    position: absolute;
+}
+
+#canvassoto {
+    width: 90vw;
+    height: 90vh;
+    position: absolute;
+    background: #00ff00;
+}
+
+#canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+}
+
+#canvasForToumei {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+}
+
+#mybutton {
+    background: #222;
+    z-index: 20;
+    position: absolute;
+    color: white;
+    height: 9vh;
+    width: 100vw;
+    margin-top: 91vh;
+}
+
+#mybuttonTate {
+    background: #222;
+    position: absolute;
+    left: 91vw;
+    width: 9vw;
+    height: 100vh;
+    z-index: 18;
+}
+
+#testimg {
+    margin-top: 100vh;
+    background: red;
+    opacity: 0;
+}
+
+#toEditPic {
+    cursor: pointer;
+}

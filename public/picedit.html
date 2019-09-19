@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Video</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <link rel="stylesheet" href="picedits/picedit.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+<body>
+    <!--canvassotoに合わせてcanvasの大きさを変えると、なぜかジャギらない。理由はいまいち不明-->
+    <div id="canvassoto">
+    </div>
+    <canvas id="canvas"></canvas>
+    <canvas id="canvasForToumei"></canvas>
+    <img src="test.jpeg" id="editimg">
+    <img src="" id="tempcanvasimg">
+
+
+    <div id="mybutton">
+        <div class="upload"><input type="file" name="file" id="file"></div>
+        <a id="toEditedPic">写真の撮影へ</a>
+    </div>
+
+    <div id="mybuttonTate">
+        <span id="smallpen">S</span>
+        <span id="mediumpen">M</span>
+        <span id="largepen">L</span>
+        <span id='erace'>erace</span>
+        <span id='deleteall'>delete all</span>
+    </div>
+
+    <img src="" id="testimg">
+
+    <script src="picedits/picedit.js"></script>
+</body>
+
+</html>
