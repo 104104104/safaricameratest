@@ -87,8 +87,9 @@ slider.addEventListener('input', e => {
     myscale = e.target.value;
 });
 
-
+//
 //ドラッグで移動するためのあれこれ
+//
 // ドラッグ状態かどうか
 let isDragging = false;
 // ドラッグ開始位置
@@ -123,6 +124,43 @@ canvas.addEventListener('mouseup', event => {
     end.x = diff.x;
     end.y = diff.y;
 });
+//
+//スマホで動かすためのあれこれ
+//
+let isDraggingTouch = false;
+// ドラッグ開始位置
+let startTouch = {
+    x: 0,
+    y: 0
+};
+// ドラッグ中の位置
+let diffTouch = {
+    x: 0,
+    y: 0
+};
+// ドラッグ終了後の位置
+let endTouch = {
+    x: 0,
+    y: 0
+}
+canvas.addEventListener('touchstart', event => {
+    isDraggingTouch = true;
+    startTouch.x = event.clientX;
+    startTouch.y = event.clientY;
+});
+canvas.addEventListener('touchmove', event => {
+    //console.log(event);
+    if (isDraggingTouch) {
+        diffTouch.x = (event.clientX - start.x) + endTouch.x;
+        diffTouch.y = (event.clientY - start.y) + endTouch.y;
+    }
+});
+canvas.addEventListener('mouseup', event => {
+    isDraggingTouch = false;
+    endTouch.x = diffTouch.x;
+    endTouch.y = diffTouch.y;
+});
+
 
 
 //ボタン描画
