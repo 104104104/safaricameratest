@@ -37,6 +37,7 @@ function draw() {
             img.height = canvas.height;
             img.width = canvas.height * imgAspect;
             img.style.width = "auto";
+
         }
         /*
         if (img.width >= img.height) {

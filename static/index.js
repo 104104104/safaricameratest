@@ -124,6 +124,7 @@ canvas.addEventListener('mouseup', event => {
     end.x = diff.x;
     end.y = diff.y;
 });
+
 //
 //スマホで動かすためのあれこれ
 //
@@ -155,7 +156,7 @@ canvas.addEventListener('touchmove', event => {
         diffTouch.y = (event.clientY - start.y) + endTouch.y;
     }
 });
-canvas.addEventListener('mouseup', event => {
+canvas.addEventListener('touchend', event => {
     isDraggingTouch = false;
     endTouch.x = diffTouch.x;
     endTouch.y = diffTouch.y;
