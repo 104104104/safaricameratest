@@ -128,44 +128,6 @@ canvas.addEventListener('mouseup', event => {
 //
 //スマホで動かすためのあれこれ
 //
-/*
-let isDraggingTouch = false;
-// ドラッグ開始位置
-let startTouch = {
-    x: 0,
-    y: 0
-};
-// ドラッグ中の位置
-let diffTouch = {
-    x: 0,
-    y: 0
-};
-// ドラッグ終了後の位置
-let endTouch = {
-    x: 0,
-    y: 0
-}
-canvas.addEventListener('touchstart', event => {
-    isDraggingTouch = true;
-    startTouch.x = event.clientX;
-    startTouch.y = event.clientY;
-});
-canvas.addEventListener('touchmove', event => {
-    //console.log(event);
-    if (isDraggingTouch) {
-        diffTouch.x = (event.clientX - start.x) + endTouch.x;
-        diffTouch.y = (event.clientY - start.y) + endTouch.y;
-    }
-});
-canvas.addEventListener('touchend', event => {
-    isDraggingTouch = false;
-    endTouch.x = diffTouch.x;
-    endTouch.y = diffTouch.y;
-});
-*/
-//
-//スマホで描画
-//
 var finger = new Array;
 for (var i = 0; i < 10; i++) {
     finger[i] = {
@@ -184,24 +146,29 @@ canvas.addEventListener("touchstart", function(e) {
         finger[i].x1 = e.touches[i].clientX - rect.left;
         finger[i].y1 = e.touches[i].clientY - rect.top;
     }
+    isDragging = true;
+    start.x = finger[0].x1;
+    start.y = finger[0].y1;
 });
-
-//タッチして動き出したら描画
+//タッチして動き出したら動かす
 canvas.addEventListener("touchmove", function(e) {
     e.preventDefault();
     var rect = e.target.getBoundingClientRect();
     for (var i = 0; i < finger.length; i++) {
         finger[i].x = e.touches[i].clientX - rect.left;
         finger[i].y = e.touches[i].clientY - rect.top;
-        ctx.beginPath();
-        ctx.moveTo(finger[i].x1, finger[i].y1);
-        ctx.lineTo(finger[i].x, finger[i].y);
-        ctx.lineCap = "round";
-        ctx.stroke();
-        finger[i].x1 = finger[i].x;
-        finger[i].y1 = finger[i].y;
-
     }
+    if (isDragging) {
+        diff.x = (finger[0].x - start.x) + end.x;
+        diff.y = (finger[0].y - start.y) + end.y;
+    }
+});
+//指が離れたら、移動終わり
+canvas.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    isDragging = false;
+    end.x = diff.x;
+    end.y = diff.y;
 });
 //
 //スマホで描画ここまで
