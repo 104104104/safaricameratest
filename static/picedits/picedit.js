@@ -22,8 +22,35 @@ function draw() {
     canvasForToumei.width = videoPosition.width;
     canvasForToumei.height = videoPosition.height;
     //imgの大きさ
-    img.width = videoPosition.width;
-    img.height = videoPosition.height;
+    //もう一回imgに読み込む
+    img = document.getElementById("editimg");
+    //読み込み終わってから、縦横比を計算
+    img.onload = function() {
+        console.log(img);
+        console.log(img.width, img.height);
+        var canvasAspect = canvas.width / canvas.height;
+        var imgAspect = img.width / img.height;
+        if (imgAspect >= canvasAspect) { //画像が横長
+            img.width = canvas.width;
+            img.height = canvas.width / imgAspect;
+        } else { //画像が縦長
+            img.height = canvas.height;
+            img.width = canvas.height * imgAspect;
+            img.style.width = "auto";
+        }
+        /*
+        if (img.width >= img.height) {
+            img.width = canvas.width;
+            img.style.height = "auto";
+            console.log('w');
+        } else {
+            img.height = canvas.height;
+            img.style.width = "auto";
+            console.log('h');
+        }
+        */
+        //img.height = videoPosition.height;
+    }
 };
 
 //
@@ -46,9 +73,14 @@ function loadLocalImage(e) {
     var reader = new FileReader();
     // ファイル読み込みに成功したときの処理
     reader.onload = function() {
-            // Canvasの後ろに表示する
+            // Canvasの後ろに画像を表示する
             uploadImgSrc = reader.result;
-            imgDraw();
+            img.src = uploadImgSrc;
+            draw();
+            //drawを走らせると、なぜかペンの色が変わるので、リセット
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = "rgba(0, 255, 0, 1.0)";
+            ctx.globalCompositeOperation = 'source-over';
         }
         // ファイル読み込みを実行
     reader.readAsDataURL(fileData);
@@ -61,14 +93,6 @@ file.addEventListener('change', loadLocalImage, false);
 //ファイル読み込み関連ここまで
 //
 
-// Canvasの後ろに画像を表示する
-function imgDraw() {
-    // canvas内の要素をクリアする
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Canvasの後ろに画像を表示
-    img.src = uploadImgSrc;
-}
 
 
 //
@@ -139,11 +163,12 @@ mediumpen.onclick = function() {
     ctx.globalCompositeOperation = 'source-over';
 }
 largepen.onclick = function() {
-        ctx.lineWidth = 30;
-        ctx.strokeStyle = "rgba(0, 255, 0, 1.0)";
-        ctx.globalCompositeOperation = 'source-over';
-    }
-    //消しゴムモード
+    ctx.lineWidth = 30;
+    ctx.strokeStyle = "rgba(0, 255, 0, 1.0)";
+    ctx.globalCompositeOperation = 'source-over';
+}
+
+//消しゴムモード
 const erace = document.getElementById("erace");
 erace.onclick = function() {
     ctx.lineWidth = 10;
@@ -162,6 +187,51 @@ deleteall.onclick = function() {
     ctx.globalCompositeOperation = 'source-over';
 }
 
+//
+//スマホで描画
+//
+var finger = new Array;
+for (var i = 0; i < 10; i++) {
+    finger[i] = {
+        x: 0,
+        y: 0,
+        x1: 0,
+        y1: 0,
+    };
+}
+
+//タッチした瞬間座標を取得
+canvas.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    var rect = e.target.getBoundingClientRect();
+    for (var i = 0; i < finger.length; i++) {
+        finger[i].x1 = e.touches[i].clientX - rect.left;
+        finger[i].y1 = e.touches[i].clientY - rect.top;
+    }
+});
+
+//タッチして動き出したら描画
+canvas.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+    var rect = e.target.getBoundingClientRect();
+    for (var i = 0; i < finger.length; i++) {
+        finger[i].x = e.touches[i].clientX - rect.left;
+        finger[i].y = e.touches[i].clientY - rect.top;
+        ctx.beginPath();
+        ctx.moveTo(finger[i].x1, finger[i].y1);
+        ctx.lineTo(finger[i].x, finger[i].y);
+        ctx.lineCap = "round";
+        ctx.stroke();
+        finger[i].x1 = finger[i].x;
+        finger[i].y1 = finger[i].y;
+
+    }
+});
+//
+//スマホで描画ここまで
+//
+
+
 
 //
 //選択部分を透明にする部分
@@ -172,7 +242,14 @@ const toEditedPic = document.getElementById("toEditedPic");
 const ctxForToumei = canvasForToumei.getContext("2d");
 toEditedPic.onclick = function() {
     // canvasForToumeiに背景の画像を書き込む
-    ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, videoPosition.width, videoPosition.height);
+    ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, img.width, img.height);
+    /*
+    if (img.width >= img.height) {
+        ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, videoPosition.width, videoPosition.height);
+    } else {
+        ctxForToumei.drawImage(document.getElementById("editimg"), 0, 0, videoPosition.width, videoPosition.height);
+    }
+    */
 
     //今のcanvas(線引いたやつ)を、canvasForToumeiに書き込むためのあれこれ
     //一旦、tempに今のcanvas(線引いたやつ)を格納

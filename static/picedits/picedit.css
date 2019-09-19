@@ -17,6 +17,7 @@ body {
     width: 90vw;
     height: 90vh;
     position: absolute;
+    background: #00ff00;
 }
 
 #canvas {
