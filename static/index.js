@@ -1,3 +1,7 @@
+//透明の編集を終えた画像を受け取る
+var recieveImg = location.search.substring(1);
+console.log(recieveImg);
+
 //本番用(リアカメラ)
 /*
 const medias = {
@@ -25,7 +29,8 @@ var myscale = 1; //sliderが動いたら、ここの値を書き換える
 
 //画像オブジェクトを生成
 var img = new Image();
-img.src = "test.png";
+img.src = recieveImg;
+console.log(img.src);
 
 promise.then(successCallback)
     .catch(errorCallback);
@@ -105,7 +110,7 @@ canvas.addEventListener('mousedown', event => {
     start.y = event.clientY;
 });
 canvas.addEventListener('mousemove', event => {
-    console.log(event);
+    //console.log(event);
     if (isDragging) {
         diff.x = (event.clientX - start.x) + end.x;
         diff.y = (event.clientY - start.y) + end.y;

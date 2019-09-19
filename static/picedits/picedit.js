@@ -241,6 +241,11 @@ toEditedPic.onclick = function() {
             var png = canvasForToumei.toDataURL();
             document.getElementById("testimg").src = png;
 
+            //生成した画像を、写真撮影モードに渡す
+            window.open('localhost:1313/?' + png, '_blank'); // 新しいタブを開き、ページを表示
+            //var toTakePhoto = document.getElementById('toTakePhoto');
+            //toTakePhoto.href = 'localhost:1313/?' + png;
+
             f = 0;
         }
     }
