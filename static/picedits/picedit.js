@@ -311,6 +311,48 @@ toEditedPic.onclick = function() {
 
             var png = canvasForToumei.toDataURL();
             document.getElementById("testimg").src = png;
+            //console.log(png);
+
+            //createObjectURLのテスト
+            //console.log(window.URL);
+            /*
+            canvasForToumei.toBlob(function(blob) {
+                console.log(URL.createObjectURL(blob));
+                console.log(blob.type);
+                dataurl = URL.createObjectURL(blob);
+
+                const reader = new FileReader();
+
+                reader.onload = function() {
+
+                    const b64 = reader.result;
+                    console.log(b64);
+
+                }
+
+                reader.readAsDataURL(blob);
+                */
+            //console.log(dataurl);
+            //window.open('/takephoto.html/?' + dataurl, '_self'); // 新しいタブを開き、ページを表示
+            /*
+            dataurl.onload = function() {
+                window.open('/takephoto.html/?' + dataurl, '_self'); // 新しいタブを開き、ページを表示
+            };*/
+            /*
+            var newImg = document.createElement("img"),
+                url = URL.createObjectURL(blob);
+
+            newImg.onload = function() {
+                // 無効化されたため、もはや blob を読み取る必要はありません。
+                URL.revokeObjectURL(url);
+            };
+
+            newImg.src = url;
+            document.body.appendChild(newImg);
+            */
+            //});
+            //objectURL = window.URL.createObjectURL(png);
+            //console.log(png);
 
             //生成した画像を、写真撮影モードに渡す
             window.open('/takephoto.html/?' + png, '_self'); // 新しいタブを開き、ページを表示

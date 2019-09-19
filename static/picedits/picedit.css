@@ -56,6 +56,7 @@ body {
 #testimg {
     margin-top: 100vh;
     background: red;
+    opacity: 0;
 }
 
 #toEditPic {

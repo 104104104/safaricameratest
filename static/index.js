@@ -1,6 +1,6 @@
 //透明の編集を終えた画像を受け取る
 var recieveImg = location.search.substring(1);
-console.log(recieveImg);
+//console.log(recieveImg);
 
 //本番用(リアカメラ)
 /*
@@ -33,7 +33,7 @@ var img = new Image();
 //img.src = "test.png";
 //本番用
 img.src = recieveImg;
-console.log(img.src);
+//console.log(img.src);
 
 promise.then(successCallback)
     .catch(errorCallback);
@@ -140,7 +140,7 @@ var finger = {
 canvas.addEventListener("touchstart", function(e) {
     e.preventDefault();
     var rect = e.target.getBoundingClientRect();
-    console.log(e.touches[0].clientX);
+    //console.log(e.touches[0].clientX);
     isDragging = true;
     start.x = e.touches[0].clientX - rect.left;
     start.y = e.touches[0].clientY - rect.top;
