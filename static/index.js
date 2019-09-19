@@ -30,9 +30,9 @@ var myscale = 1; //sliderが動いたら、ここの値を書き換える
 //画像オブジェクトを生成
 var img = new Image();
 //テスト用
-img.src = "test.png";
+//img.src = "test.png";
 //本番用
-//img.src = recieveImg;
+img.src = recieveImg;
 console.log(img.src);
 
 promise.then(successCallback)

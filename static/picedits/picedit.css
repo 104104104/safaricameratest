@@ -57,3 +57,7 @@ body {
     margin-top: 100vh;
     background: red;
 }
+
+#toEditPic {
+    cursor: pointer;
+}
