@@ -313,8 +313,9 @@ toEditedPic.onclick = function() {
             document.getElementById("testimg").src = png;
 
             //生成した画像を、写真撮影モードに渡す
-            url = '/takephoto.html/?' + png, '_blank'; // 新しいタブを開き、ページを表示iosのために、こんな書き方
-            if (window.open(url)) {
+            url = '/takephoto.html/?' + png; // 新しいタブを開き、ページを表示
+            if (window.open(url, "_blank")) {
+
 
             } else {
                 window.location.href = url;
