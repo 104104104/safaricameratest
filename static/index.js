@@ -128,6 +128,7 @@ canvas.addEventListener('mouseup', event => {
 //
 //スマホで動かすためのあれこれ
 //
+/*
 let isDraggingTouch = false;
 // ドラッグ開始位置
 let startTouch = {
@@ -161,6 +162,51 @@ canvas.addEventListener('touchend', event => {
     endTouch.x = diffTouch.x;
     endTouch.y = diffTouch.y;
 });
+*/
+//
+//スマホで描画
+//
+var finger = new Array;
+for (var i = 0; i < 10; i++) {
+    finger[i] = {
+        x: 0,
+        y: 0,
+        x1: 0,
+        y1: 0,
+    };
+}
+
+//タッチした瞬間座標を取得
+canvas.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    var rect = e.target.getBoundingClientRect();
+    for (var i = 0; i < finger.length; i++) {
+        finger[i].x1 = e.touches[i].clientX - rect.left;
+        finger[i].y1 = e.touches[i].clientY - rect.top;
+    }
+});
+
+//タッチして動き出したら描画
+canvas.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+    var rect = e.target.getBoundingClientRect();
+    for (var i = 0; i < finger.length; i++) {
+        finger[i].x = e.touches[i].clientX - rect.left;
+        finger[i].y = e.touches[i].clientY - rect.top;
+        ctx.beginPath();
+        ctx.moveTo(finger[i].x1, finger[i].y1);
+        ctx.lineTo(finger[i].x, finger[i].y);
+        ctx.lineCap = "round";
+        ctx.stroke();
+        finger[i].x1 = finger[i].x;
+        finger[i].y1 = finger[i].y;
+
+    }
+});
+//
+//スマホで描画ここまで
+//
+
 
 
 
